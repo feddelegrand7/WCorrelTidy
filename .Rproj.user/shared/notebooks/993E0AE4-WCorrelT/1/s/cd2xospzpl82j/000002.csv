@@ -1,0 +1,6 @@
+"0","reactable(women %>% arrange(name) %>% "
+"0","            select(name, description), "
+"0","          filterable = TRUE, "
+"0","          sortable = TRUE, "
+"0","          resizable = TRUE, "
+"0","          defaultPageSize = 10)"

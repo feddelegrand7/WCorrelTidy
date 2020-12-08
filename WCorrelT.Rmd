@@ -1,0 +1,237 @@
+---
+title: "TidyTuesday Women of 2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+```
+
+
+
+```{css, echo = FALSE}
+
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300&display=swap');
+
+*{
+
+    box-sizing: border-box;
+
+}
+
+
+body {
+
+    font-family: 'Nunito', sans-serif;
+
+}
+
+.main-container {
+    
+    max-width:100% !important;
+    margin-left:0 !important;
+    margin-right:0 !important;
+}
+
+
+.first-row {
+  
+  display:flex;
+
+}
+
+.section.level3{
+  
+  padding-right:100px;
+  
+  
+}
+
+h1, h2 {
+  
+  text-align: center; 
+  font-style: oblic;
+
+  
+  
+}
+
+.pictures {
+  
+  display:flex; 
+  flex-wrap: wrap; 
+  margin: 20px; 
+  justify-content: center; 
+  align-items: center; 
+
+
+}
+
+.btn  {
+  
+  display: flex;
+  justify-content: center;
+}
+
+img {
+  
+  padding:10px; 
+  margin: 10px; 
+  border-radius: 30px
+  
+}
+
+```
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE}
+
+women <- data.table::fread('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-12-08/women.csv')
+
+women <- as_tibble(women)
+
+```
+
+<hr style = "border-bottom: solid 2px #24BFA5;">
+
+
+
+<div class = "first-row">
+
+### BBC 100 inspiring and influential women by category
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+
+women %>% count(category, name = "count") %>% 
+  mutate(percentage = (count/sum(count)) * 100) %>% 
+  ggplot(aes(reorder(category, -percentage), percentage)) +
+    geom_col(fill = "#24BFA5") +
+    labs(x = NULL, y = "(%)",
+         title = NULL) +
+  theme(panel.background = element_rect(fill = "#FDF6E3"), 
+        plot.title = element_text(hjust = 0))
+
+```
+
+
+### BBC influential women by role and country of origin
+
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(reactable)
+
+reactable(women %>% arrange(name) %>% 
+            select(name, role, country), 
+          filterable = TRUE, 
+          sortable = TRUE, 
+          resizable = TRUE, 
+          defaultPageSize = 5, 
+          columns = list(name = colDef(name = "Name"), 
+                         role = colDef(name = "Role"), 
+                         country = colDef(name = "Country")))
+
+
+```
+
+
+</div>
+
+<hr style = "border-bottom: solid 2px #24BFA5;">
+
+## More Details 
+
+<hr style = "border-bottom: solid 2px #24BFA5;">
+
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+reactable(women %>% arrange(name) %>% select(name, description), 
+          filterable = TRUE, 
+          sortable = TRUE, 
+          resizable = TRUE, 
+          defaultPageSize = 10, 
+          columns = list(name = colDef(name = "Name", 
+                                       maxWidth = 100), 
+                         description = colDef(name = "Description"))
+          )
+
+
+
+
+
+```
+
+<hr style = "border-bottom: solid 2px #24BFA5;">
+
+
+## Some Pictures
+
+
+<hr style = "border-bottom: solid 2px #24BFA5;">
+
+<br> 
+
+<div class = "btn">
+
+<button> Discover </button>
+
+</div>
+
+
+<div class = "pictures"> 
+
+
+
+```{r, echo=FALSE, results='asis'}
+
+
+htmltools::tags$script(glue::glue("
+                                  
+                                  
+
+const pictures = document.querySelector('.pictures');
+
+const btn = document.querySelector('.btn');
+
+btn.addEventListener('click', function(){{
+
+ const links = {jsonlite::toJSON(women$img)}
+
+ const item = links[Math.floor(Math.random() * links.length)];
+
+ const img = document.createElement('img');
+  
+
+ img.src = item;
+
+ img.alt = 'inspring women by BBC';
+
+
+ pictures.appendChild(img);
+
+
+
+}})
+                                  
+                                  "))
+
+
+```
+
+</div>
+
+<br> 
+
+<br> 
+
+<br> 
+
+<br> 
+
+<br> 
+
