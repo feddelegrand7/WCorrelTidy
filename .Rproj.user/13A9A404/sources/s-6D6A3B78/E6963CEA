@@ -1,7 +1,7 @@
 {
     "id": "E6963CEA",
-    "path": "C:/Users/Administrateur/Desktop/WCorrelTidy/WCorrelT.Rmd",
-    "project_path": "WCorrelT.Rmd",
+    "path": "C:/Users/Administrateur/Desktop/WCorrelTidy/index.Rmd",
+    "project_path": "index.Rmd",
     "type": "r_markdown",
     "hash": "0",
     "contents": "",
@@ -15,14 +15,14 @@
         "Source": "Source",
         "cursorPosition": "81,21",
         "scrollLine": "64",
-        "last_setup_crc32": "6D6A3B7878713932"
+        "last_setup_crc32": ""
     },
     "folds": "",
     "lastKnownWriteTime": 1607464218,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1607464218260,
+    "last_content_update": 1607464218,
     "read_only": false,
     "read_only_alternatives": []
 }
